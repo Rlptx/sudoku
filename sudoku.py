@@ -54,7 +54,7 @@ class Sudoku(object):
 
     def __init__(self, cells=[]):
         self.cells = cells
-        self.verbose = True
+        self.verbose = False
 
     def cell(self, row, col):
         return self.cells[row * SUDOKU_LENGHT + col]
@@ -192,4 +192,5 @@ if __name__ == "__main__":
     sudoku = test_get_sudoku_from_grid()
     print(sudoku)
     sudoku.solve()
+    print('\n')
     print(sudoku)

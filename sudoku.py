@@ -121,7 +121,7 @@ class Sudoku(object):
             self.solve_col(cell, static=True)
             self.solve_square(cell, static=True)
 
-    def solve(self):
+    def solve_core(self):
         self.solve_init()
         # find potential for value for each cells
         unstatic_cells = list(self.unstatic_cells())
@@ -145,6 +145,14 @@ class Sudoku(object):
                 cell = unstatic_cells[cell_idx]
                 cell.nextnumberidx()
 
+    def solve(self):
+        print('INPUT:\n')
+        print(self)
+        self.solve_core()
+        print('\n')
+        print('OUTPUT:\n')
+        print(self)
+
     @staticmethod
     def from_grid(grid):
         sudoku = Sudoku()
@@ -160,37 +168,29 @@ class Sudoku(object):
                 sudoku.append(cell)
         return sudoku
 
+    @staticmethod
+    def from_csv(path):
+        grid = []
+        with open(path) as f:
+            for line in f.readlines():
+                grid.append([int(k) for k in line.split(',')])
+        return Sudoku.from_grid(grid)
 
-def test_get_sudoku_from_grid():
-    # grid = [
-    #     [5, 3, 0, 0, 7, 0, 0, 0, 0],
-    #     [6, 0, 0, 1, 9, 5, 0, 0, 0],
-    #     [0, 9, 8, 0, 0, 0, 0, 6, 0],
-    #     [8, 0, 0, 0, 6, 0, 0, 0, 3],
-    #     [4, 0, 0, 8, 0, 3, 0, 0, 1],
-    #     [7, 0, 0, 0, 2, 0, 0, 0, 6],
-    #     [0, 6, 0, 0, 0, 0, 2, 8, 0],
-    #     [0, 0, 0, 4, 1, 9, 0, 0, 5],
-    #     [0, 0, 0, 0, 8, 0, 0, 7, 9],
-    # ]
-    grid = [
-        [0, 0, 0, 2, 6, 0, 7, 0, 1],
-        [6, 8, 0, 0, 7, 0, 0, 9, 0],
-        [1, 9, 0, 0, 0, 4, 5, 0, 0],
-        [8, 2, 0, 1, 0, 0, 0, 4, 0],
-        [0, 0, 4, 6, 0, 2, 9, 0, 0],
-        [0, 5, 0, 0, 0, 3, 0, 2, 8],
-        [0, 0, 9, 3, 0, 0, 0, 7, 4],
-        [0, 4, 0, 0, 5, 0, 0, 3, 6],
-        [7, 0, 3, 0, 1, 8, 0, 0, 0],
-    ]
-    sudoku = Sudoku.from_grid(grid)
-    return sudoku
+
+def test_1():
+    print('TEST #1\n')
+    path = 'grid/grid_1.csv'
+    sdk = Sudoku.from_csv(path)
+    sdk.solve()
+
+
+def test_2():
+    print('TEST #2\n')
+    path = 'grid/grid_2.csv'
+    sdk = Sudoku.from_csv(path)
+    sdk.solve()
 
 
 if __name__ == "__main__":
-    sudoku = test_get_sudoku_from_grid()
-    print(sudoku)
-    sudoku.solve()
-    print('\n')
-    print(sudoku)
+    pass
+    test_1()

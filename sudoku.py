@@ -191,6 +191,13 @@ def test_2():
     sdk.solve()
 
 
+def test_3():
+    print('TEST #3\n')
+    path = 'grid/grid_3.csv'
+    sdk = Sudoku.from_csv(path)
+    sdk.solve()
+
+
 if __name__ == "__main__":
     pass
-    test_1()
+    test_3()
